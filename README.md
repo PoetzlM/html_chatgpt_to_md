@@ -48,12 +48,11 @@ You can also import `html_chatgpt_to_md` into your own Python projects and use i
 ``` python
 from html_chatgpt_to_md.html_chatgpt_to_md import html_to_markdown
 
-# Define the input and output file paths
-input_html = 'path_to_input.html'
-output_markdown = 'path_to_output.md'
-
 # Call the function
-html_to_markdown(input_html, output_markdown)
+soup, modified_markdown = html_to_markdown(html_content)
+
+# or convert from html file to markdown file, and keep markdown sources in buffer
+soup, modified_markdown = html_file_to_markdown_file(input_file, output_file)
 
 print("Markdown conversion completed successfully!")
 ```

@@ -85,10 +85,8 @@ def modify_string(input_string, replacements):
     
     return input_string
 
-def html_to_markdown(input_file, output_file):
-    """Convert HTML content from input_file to markdown format and save it to output_file."""
-    with open(input_file, 'r', encoding='utf-8') as file:
-        html_content = file.read()
+def html_to_markdown(html_content):
+
     soup = BeautifulSoup(html_content, 'html.parser')
 
     # Remove unnecessary elements from HTML
@@ -111,6 +109,16 @@ def html_to_markdown(input_file, output_file):
     markdown_text = md(str(soup), heading_style="ATX")
     modified_markdown = modify_string(markdown_text, script_types)
 
+    return soup, modified_markdown
+
+
+def html_file_to_markdown_file(input_file, output_file):
+    """Convert HTML content from input_file to markdown format and save it to output_file."""
+    with open(input_file, 'r', encoding='utf-8') as file:
+        html_content = file.read()
+    
+    soup, modified_markdown = html_to_markdown(html_content)
+    
     # Write the modified markdown to the output file
     with open(output_file, 'w', encoding='utf-8') as md_file:
         md_file.write(modified_markdown)
@@ -126,4 +134,4 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     # Run conversion
-    html_to_markdown(args.input, args.output)
+    html_file_to_markdown_file(args.input, args.output)
